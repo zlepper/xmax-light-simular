@@ -3,10 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <title>Tree lights</title>
-    <link rel='stylesheet' href='index.scss' />
+    <link rel="stylesheet" href="index.scss" />
   </head>
-  <body>
-    <canvas id="canvas"></canvas>
+  <body class="main-body">
+  <div class='header'>
+    <h1>XMas tree lightning</h1>
+  </div>
+
+
+    <div class="render">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <div class='controls'>
+      <label>
+        Tree shape
+      <input type='file' id='tree-share-input'>
+      </label>
+    </div>
 
     <script src="index.ts" type="module"></script>
   </body>

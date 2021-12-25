@@ -8,3 +8,24 @@ html, body {
   width: 100%;
   display: block;
 }
+
+.main-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 5em 1fr;
+  grid-template-areas:
+          'header header'
+          'render controls';
+}
+
+.header {
+  grid-area: header;
+}
+
+.render {
+  grid-area: render;
+}
+
+.controls {
+  grid-area: controls;
+}
