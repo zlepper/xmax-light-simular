@@ -16,20 +16,16 @@ import {
   SphereGeometry,
   WebGLRenderer,
 } from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { ElementProxyReceiver, RenderSize } from '../helpers/orbit-control-wrapper';
 import { ColorAnimation, parseColorAnimation } from '../models/color-animation';
 import { LightStructure, parseLightStructure } from '../models/light-structure';
-
-interface RenderSize {
-  height: number;
-  width: number;
-}
 
 const RENDER_SCALE = 100;
 
 const TIME_BETWEEN_FRAMES = 50;
 
 export class TreeLightRenderer {
-  private renderSize: RenderSize = { height: 100, width: 100 };
   private renderer: WebGLRenderer;
   private camera: PerspectiveCamera;
   private scene: Scene;
@@ -38,24 +34,42 @@ export class TreeLightRenderer {
   private timeSinceLastFrameJump = 0;
 
   private lights: LightWrapper[] = [];
+  private controls: OrbitControls;
+  private elementProxy = new ElementProxyReceiver();
+
+  private sceneLight: DirectionalLight;
 
   constructor(private canvas: OffscreenCanvas) {}
 
   initialize() {
-    console.log('initializing worker');
+    (self as any).document = {};
     this.renderer = this.createRenderer();
     this.camera = this.createCamera();
+    this.controls = this.makeControls(this.elementProxy);
 
     this.scene = new Scene();
-    this.addLight();
+    this.sceneLight = this.addLight();
 
     this.initializeRendering();
+  }
+
+  private makeControls(inputElement: ElementProxyReceiver): OrbitControls {
+    const controls = new OrbitControls(this.camera, inputElement as any);
+    controls.target.set(0, 0, 0);
+    controls.update();
+
+    controls.addEventListener('change', () => {
+      this.sceneLight.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
+    });
+
+    return controls;
   }
 
   private addLight() {
     const light = new DirectionalLight(0xffffff, 1);
     light.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
     this.scene.add(light);
+    return light;
   }
 
   private initializeRendering() {
@@ -67,7 +81,7 @@ export class TreeLightRenderer {
       this.timeSinceLastFrameJump += time;
 
       if (this.resizeRendererToDisplaySize(this.renderer)) {
-        this.camera.aspect = this.renderSize.width / this.renderSize.height;
+        this.camera.aspect = this.elementProxy.clientWidth / this.elementProxy.clientHeight;
         this.camera.updateProjectionMatrix();
       }
 
@@ -101,14 +115,15 @@ export class TreeLightRenderer {
   }
 
   public updateScreenSize(size: RenderSize) {
-    this.renderSize = size;
+    this.elementProxy.updateSize(size);
   }
 
   private resizeRendererToDisplaySize(renderer: WebGLRenderer): boolean {
     const canvas = renderer.domElement;
-    const needResize = canvas.width !== this.renderSize.width || canvas.height !== this.renderSize.height;
+    const { clientWidth: width, clientHeight: height } = this.elementProxy;
+    const needResize = canvas.width !== width || canvas.height !== height;
     if (needResize) {
-      renderer.setSize(this.renderSize.width, this.renderSize.height, false);
+      renderer.setSize(width, height, false);
     }
     return needResize;
   }
@@ -140,7 +155,7 @@ export class TreeLightRenderer {
 
     this.centerCamera(structure);
 
-    this.addLight();
+    this.scene.add(this.sceneLight);
   }
 
   private centerCamera(structure: LightStructure) {
@@ -152,6 +167,7 @@ export class TreeLightRenderer {
     const middle = min + diff;
 
     this.camera.position.y = middle * RENDER_SCALE;
+    this.controls.target.y = this.camera.position.y;
   }
 
   private makeSphere(radius: number, x: number, y: number, z: number): LightWrapper {
@@ -207,6 +223,10 @@ export class TreeLightRenderer {
 
       light.material.color = new Color(lightColor.red / 255, lightColor.green / 255, lightColor.blue / 255);
     }
+  }
+
+  public sendProxyElementEvent(ev: any) {
+    this.elementProxy.handleEvent(ev);
   }
 }
 

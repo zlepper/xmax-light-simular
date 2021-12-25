@@ -10,6 +10,7 @@ import {
   Scene,
   WebGLRenderer,
 } from 'three';
+import { ElementProxy, eventHandlers } from './client/orbit-control-wrapper';
 import { LocalStorageHelper } from './helpers/local-storage';
 import { parseLightStructure } from './models/light-structure';
 import { TreeLightRenderer } from './worker/worker';
@@ -35,6 +36,8 @@ class Application {
   }
 
   public async run() {
+    const elementProxy = new ElementProxy(this.canvas, this.wrapper, eventHandlers);
+
     await this.wrapper.initialize();
 
     window.addEventListener('resize', () => {
@@ -84,11 +87,13 @@ class Application {
   }
 
   private handleResize() {
-    const { clientWidth, clientHeight } = this.canvas;
+    const rect = this.canvas.getBoundingClientRect();
 
     this.wrapper.updateScreenSize({
-      height: clientHeight,
-      width: clientWidth,
+      height: rect.height,
+      width: rect.width,
+      left: rect.left,
+      top: rect.top,
     });
   }
 }
