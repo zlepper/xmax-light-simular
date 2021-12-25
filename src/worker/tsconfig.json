@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["WebWorker", "ES2020"]
+  },
+  "exclude": ["node_modules"]
+}
