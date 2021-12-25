@@ -10,7 +10,7 @@ export class ElementProxy {
 
     for (const [eventName, handler] of Object.entries(eventHandlers)) {
       element.addEventListener(eventName, function (event) {
-        handler(event, (ev) => {
+        (handler as any)(event, (ev) => {
           worker.sendProxyElementEvent(ev);
         });
       });

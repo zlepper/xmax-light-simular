@@ -6217,6 +6217,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "tree-lights@workspace:."
   dependencies:
+    "@parcel/config-default": ^2.0.1
     "@parcel/transformer-inline-string": ^2.0.1
     "@parcel/transformer-sass": ^2.0.1
     "@types/three": ^0.135.0

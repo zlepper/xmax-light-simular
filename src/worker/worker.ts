@@ -230,7 +230,8 @@ export class TreeLightRenderer {
   }
 
   public async showZDebugPlane() {
-    const content = await import('bundle-text:../debug-helpers/debug-z-plane.csv');
+    // @ts-ignore
+    const content = await import('../debug-helpers/debug-z-plane.csv');
 
     const animation = parseColorAnimationFromString(content, 'debug-z-plane');
     this.startRenderingAnimation(animation);

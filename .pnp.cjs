@@ -35,6 +35,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
+            ["@parcel/config-default", "virtual:98cae03414b9f3c9550834e999af5d257b2e3014ed4b13a66e756d9652dca498526af39c4d01246f703c96282577778a6eced8259c380082bd8920d0ee7dbbb1#npm:2.0.1"],
             ["@parcel/transformer-inline-string", "npm:2.0.1"],
             ["@parcel/transformer-sass", "npm:2.0.1"],
             ["@types/three", "npm:0.135.0"],
@@ -549,6 +550,49 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@parcel/config-default", "npm:2.0.1"]
           ],
           "linkType": "SOFT",
+        }],
+        ["virtual:98cae03414b9f3c9550834e999af5d257b2e3014ed4b13a66e756d9652dca498526af39c4d01246f703c96282577778a6eced8259c380082bd8920d0ee7dbbb1#npm:2.0.1", {
+          "packageLocation": "./.yarn/__virtual__/@parcel-config-default-virtual-cd1e666a95/0/cache/@parcel-config-default-npm-2.0.1-fdf4670524-39dd37242a.zip/node_modules/@parcel/config-default/",
+          "packageDependencies": [
+            ["@parcel/config-default", "virtual:98cae03414b9f3c9550834e999af5d257b2e3014ed4b13a66e756d9652dca498526af39c4d01246f703c96282577778a6eced8259c380082bd8920d0ee7dbbb1#npm:2.0.1"],
+            ["@parcel/bundler-default", "npm:2.0.1"],
+            ["@parcel/compressor-raw", "npm:2.0.1"],
+            ["@parcel/core", null],
+            ["@parcel/namer-default", "npm:2.0.1"],
+            ["@parcel/optimizer-cssnano", "npm:2.0.1"],
+            ["@parcel/optimizer-htmlnano", "npm:2.0.1"],
+            ["@parcel/optimizer-image", "npm:2.0.1"],
+            ["@parcel/optimizer-svgo", "npm:2.0.1"],
+            ["@parcel/optimizer-terser", "npm:2.0.1"],
+            ["@parcel/packager-css", "npm:2.0.1"],
+            ["@parcel/packager-html", "npm:2.0.1"],
+            ["@parcel/packager-js", "npm:2.0.1"],
+            ["@parcel/packager-raw", "npm:2.0.1"],
+            ["@parcel/packager-svg", "npm:2.0.1"],
+            ["@parcel/reporter-dev-server", "npm:2.0.1"],
+            ["@parcel/resolver-default", "npm:2.0.1"],
+            ["@parcel/runtime-browser-hmr", "npm:2.0.1"],
+            ["@parcel/runtime-js", "npm:2.0.1"],
+            ["@parcel/runtime-react-refresh", "npm:2.0.1"],
+            ["@parcel/runtime-service-worker", "npm:2.0.1"],
+            ["@parcel/transformer-babel", "npm:2.0.1"],
+            ["@parcel/transformer-css", "npm:2.0.1"],
+            ["@parcel/transformer-html", "npm:2.0.1"],
+            ["@parcel/transformer-image", "npm:2.0.1"],
+            ["@parcel/transformer-js", "npm:2.0.1"],
+            ["@parcel/transformer-json", "npm:2.0.1"],
+            ["@parcel/transformer-postcss", "npm:2.0.1"],
+            ["@parcel/transformer-posthtml", "npm:2.0.1"],
+            ["@parcel/transformer-raw", "npm:2.0.1"],
+            ["@parcel/transformer-react-refresh-wrap", "npm:2.0.1"],
+            ["@parcel/transformer-svg", "npm:2.0.1"],
+            ["@types/parcel__core", null]
+          ],
+          "packagePeers": [
+            "@parcel/core",
+            "@types/parcel__core"
+          ],
+          "linkType": "HARD",
         }],
         ["virtual:a81b43bcaa6c1ff44dc3549dea701921737e32a2916897d691dc1d195a64656c5e3ddec179022f5fc28ec8315b7d3f2990795812a224a77c18ea73efdde6a17b#npm:2.0.1", {
           "packageLocation": "./.yarn/__virtual__/@parcel-config-default-virtual-399961c9b2/0/cache/@parcel-config-default-npm-2.0.1-fdf4670524-39dd37242a.zip/node_modules/@parcel/config-default/",
@@ -7590,6 +7634,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["tree-lights", "workspace:."],
+            ["@parcel/config-default", "virtual:98cae03414b9f3c9550834e999af5d257b2e3014ed4b13a66e756d9652dca498526af39c4d01246f703c96282577778a6eced8259c380082bd8920d0ee7dbbb1#npm:2.0.1"],
             ["@parcel/transformer-inline-string", "npm:2.0.1"],
             ["@parcel/transformer-sass", "npm:2.0.1"],
             ["@types/three", "npm:0.135.0"],
