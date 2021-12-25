@@ -15,6 +15,13 @@
     </div>
 
     <div class="controls">
+      <p>
+        To start: Pick a tree shape by selecting a file in the "GIFT" format.
+        Once a tree is selected, select an animation file by using the other file selector.
+        Then you should see an animation on the left.
+      </p>
+
+
       <label>
         Tree shape
         <input type="file" id="tree-share-input" accept="text/csv" />
@@ -24,6 +31,10 @@
         Animation file
         <input type="file" id="animation-input" accept="text/csv" />
       </label>
+
+      <button type='button' id='debug-z-plane-button'>
+        Animate over z plane
+      </button>
     </div>
 
     <script src="index.ts" type="module"></script>

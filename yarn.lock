@@ -936,6 +936,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@parcel/transformer-inline-string@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@parcel/transformer-inline-string@npm:2.0.1"
+  dependencies:
+    "@parcel/plugin": ^2.0.1
+  checksum: 69b0b7854fdbc50401942c8c3880634866f60d9d0a7143c68ef87b3ac970c8f4a6eff2f9ed7b3a7cd58dc2c4ce5ae48ad874bbdfcaa5c85ba89c1f165c0004d0
+  languageName: node
+  linkType: hard
+
 "@parcel/transformer-js@npm:^2.0.1":
   version: 2.0.1
   resolution: "@parcel/transformer-js@npm:2.0.1"
@@ -6208,6 +6217,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "tree-lights@workspace:."
   dependencies:
+    "@parcel/transformer-inline-string": ^2.0.1
     "@parcel/transformer-sass": ^2.0.1
     "@types/three": ^0.135.0
     "@zlepper/rpc": ^0.0.5

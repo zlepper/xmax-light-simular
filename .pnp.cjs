@@ -35,6 +35,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
+            ["@parcel/transformer-inline-string", "npm:2.0.1"],
             ["@parcel/transformer-sass", "npm:2.0.1"],
             ["@types/three", "npm:0.135.0"],
             ["@zlepper/rpc", "npm:0.0.5"],
@@ -1199,6 +1200,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@parcel/plugin", "npm:2.0.1"],
             ["@parcel/workers", "virtual:6e65f156ad62296b35a812adaddfcc19e0e53ddd87373a9a2a3998402ea48fad4034288641fa903d2db8913dd063feb4f25d263a37075a6a006334944a4a9a4c#npm:2.0.1"],
             ["nullthrows", "npm:1.1.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@parcel/transformer-inline-string", [
+        ["npm:2.0.1", {
+          "packageLocation": "./.yarn/cache/@parcel-transformer-inline-string-npm-2.0.1-ff3e48f707-69b0b7854f.zip/node_modules/@parcel/transformer-inline-string/",
+          "packageDependencies": [
+            ["@parcel/transformer-inline-string", "npm:2.0.1"],
+            ["@parcel/plugin", "npm:2.0.1"]
           ],
           "linkType": "HARD",
         }]
@@ -7579,6 +7590,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["tree-lights", "workspace:."],
+            ["@parcel/transformer-inline-string", "npm:2.0.1"],
             ["@parcel/transformer-sass", "npm:2.0.1"],
             ["@types/three", "npm:0.135.0"],
             ["@zlepper/rpc", "npm:0.0.5"],

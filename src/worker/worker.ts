@@ -18,7 +18,7 @@ import {
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { ElementProxyReceiver, RenderSize } from '../helpers/orbit-control-wrapper';
-import { ColorAnimation, parseColorAnimation } from '../models/color-animation';
+import { ColorAnimation, parseColorAnimation, parseColorAnimationFromString } from '../models/color-animation';
 import { LightStructure, parseLightStructure } from '../models/light-structure';
 
 const RENDER_SCALE = 100;
@@ -227,6 +227,13 @@ export class TreeLightRenderer {
 
   public sendProxyElementEvent(ev: any) {
     this.elementProxy.handleEvent(ev);
+  }
+
+  public async showZDebugPlane() {
+    const content = await import('bundle-text:../debug-helpers/debug-z-plane.csv');
+
+    const animation = parseColorAnimationFromString(content, 'debug-z-plane');
+    this.startRenderingAnimation(animation);
   }
 }
 

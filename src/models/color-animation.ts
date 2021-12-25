@@ -18,7 +18,11 @@ export interface ColorAnimation {
 export async function parseColorAnimation(file: File): Promise<ColorAnimation> {
   const content = await file.text();
 
-  const frames = content
+  return parseColorAnimationFromString(content, file.name);
+}
+
+export function parseColorAnimationFromString(s: string, fileName: string): ColorAnimation {
+  const frames = s
     .split('\n')
     .slice(1)
     .filter((line) => line.length > 0)
@@ -49,6 +53,6 @@ export async function parseColorAnimation(file: File): Promise<ColorAnimation> {
 
   return {
     frames,
-    filename: file.name,
+    filename: fileName,
   };
 }

@@ -84,6 +84,11 @@ class Application {
         await this.wrapper.setColorAnimation(file);
       }
     });
+
+    const zPlaneDebugButton = document.getElementById('debug-z-plane-button');
+    zPlaneDebugButton.addEventListener('click', () => {
+      this.wrapper.showZDebugPlane();
+    });
   }
 
   private handleResize() {
