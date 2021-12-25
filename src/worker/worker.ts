@@ -3,6 +3,7 @@ import { WebWorkerServerConnection } from '@zlepper/web-worker-rpc';
 import {
   BoxGeometry,
   BufferGeometry,
+  Color,
   DirectionalLight,
   Light,
   Material,
@@ -15,6 +16,7 @@ import {
   SphereGeometry,
   WebGLRenderer,
 } from 'three';
+import { ColorAnimation, parseColorAnimation } from '../models/color-animation';
 import { LightStructure, parseLightStructure } from '../models/light-structure';
 
 interface RenderSize {
@@ -24,11 +26,18 @@ interface RenderSize {
 
 const RENDER_SCALE = 100;
 
+const TIME_BETWEEN_FRAMES = 50;
+
 export class TreeLightRenderer {
   private renderSize: RenderSize = { height: 100, width: 100 };
   private renderer: WebGLRenderer;
   private camera: PerspectiveCamera;
   private scene: Scene;
+  private activeAnimation: ColorAnimation | null;
+  private nextAnimationFrame = 0;
+  private timeSinceLastFrameJump = 0;
+
+  private lights: LightWrapper[] = [];
 
   constructor(private canvas: OffscreenCanvas) {}
 
@@ -55,9 +64,15 @@ export class TreeLightRenderer {
     const render = (time) => {
       time *= 0.001;
 
+      this.timeSinceLastFrameJump += time;
+
       if (this.resizeRendererToDisplaySize(this.renderer)) {
         this.camera.aspect = this.renderSize.width / this.renderSize.height;
         this.camera.updateProjectionMatrix();
+      }
+
+      if (this.timeSinceLastFrameJump > TIME_BETWEEN_FRAMES) {
+        this.goToNextAnimationFrame();
       }
 
       this.renderer.render(this.scene, this.camera);
@@ -113,11 +128,14 @@ export class TreeLightRenderer {
 
   private renderStructure(structure: LightStructure) {
     console.log('rendering structure', structure);
+    this.activeAnimation = null;
     this.scene.clear();
+    this.lights = [];
 
     for (const light of structure.lights) {
       const sphere = this.makeSphere(2, light.x * RENDER_SCALE, light.y * RENDER_SCALE, light.z * RENDER_SCALE);
-      this.scene.add(sphere);
+      this.scene.add(sphere.mesh);
+      this.lights.push(sphere);
     }
 
     this.centerCamera(structure);
@@ -136,19 +154,64 @@ export class TreeLightRenderer {
     this.camera.position.y = middle * RENDER_SCALE;
   }
 
-  private makeSphere(radius: number, x: number, y: number, z: number) {
+  private makeSphere(radius: number, x: number, y: number, z: number): LightWrapper {
     const geometry = new SphereGeometry(radius, 10, 6);
 
     const material = new MeshPhongMaterial({
-      color: 0x8866ff,
+      color: 0x000000,
     });
 
     const mesh = new Mesh(geometry, material);
     mesh.position.x = x;
     mesh.position.y = y;
     mesh.position.z = z;
-    return mesh;
+    return new LightWrapper(mesh, material);
   }
+
+  public async setColorAnimation(file: File): Promise<ColorAnimation> {
+    const animation = await parseColorAnimation(file);
+    console.log('parsed animation', animation);
+
+    this.startRenderingAnimation(animation);
+
+    return animation;
+  }
+
+  private startRenderingAnimation(animation: ColorAnimation) {
+    this.activeAnimation = animation;
+    this.nextAnimationFrame = 0;
+  }
+
+  private goToNextAnimationFrame() {
+    if (!this.activeAnimation) {
+      return;
+    }
+
+    const frame = this.activeAnimation.frames[this.nextAnimationFrame];
+    if (!frame) {
+      debugger;
+    }
+
+    this.nextAnimationFrame = (this.nextAnimationFrame + 1) % this.activeAnimation.frames.length;
+
+    if (this.lights.length !== frame.lights.length) {
+      console.error('number of lights and numbers of colors in frame does not match', {
+        frame,
+        numberOfLights: this.lights.length,
+      });
+    }
+
+    for (let lightIndex = 0; lightIndex < frame.lights.length; lightIndex++) {
+      const lightColor = frame.lights[lightIndex];
+      const light = this.lights[lightIndex];
+
+      light.material.color = new Color(lightColor.red / 255, lightColor.green / 255, lightColor.blue / 255);
+    }
+  }
+}
+
+class LightWrapper {
+  constructor(public readonly mesh: Mesh, public readonly material: MeshPhongMaterial) {}
 }
 
 function initialize(ev: MessageEvent) {

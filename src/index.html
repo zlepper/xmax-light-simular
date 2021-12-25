@@ -6,19 +6,23 @@
     <link rel="stylesheet" href="index.scss" />
   </head>
   <body class="main-body">
-  <div class='header'>
-    <h1>XMas tree lightning</h1>
-  </div>
-
+    <div class="header">
+      <h1>XMas tree lightning</h1>
+    </div>
 
     <div class="render">
       <canvas id="canvas"></canvas>
     </div>
 
-    <div class='controls'>
+    <div class="controls">
       <label>
         Tree shape
-      <input type='file' id='tree-share-input'>
+        <input type="file" id="tree-share-input" accept="text/csv" />
+      </label>
+
+      <label>
+        Animation file
+        <input type="file" id="animation-input" accept="text/csv" />
       </label>
     </div>
 

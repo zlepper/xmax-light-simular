@@ -69,6 +69,18 @@ class Application {
         this.storage.put('lastStructure', structure);
       }
     });
+
+    const animationInput = document.getElementById('animation-input') as HTMLInputElement;
+
+    animationInput.addEventListener('change', async () => {
+      console.log('new animation file selected');
+
+      if (animationInput.files?.length > 0) {
+        const file = animationInput.files.item(0);
+
+        await this.wrapper.setColorAnimation(file);
+      }
+    });
   }
 
   private handleResize() {
